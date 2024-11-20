@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圖片自動滑動範例</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<style type="text/css">
+/* styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  width: 80%; /* 滑動區域的寬度 */
+  height: 300px; /* 設置固定的高度 */
+  margin: 0 auto; /* 使滑動區域居中 */
+  overflow: hidden; /* 隱藏多餘的圖片 */
+  position: relative;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+
+.slider {
+  display: flex;
+  animation: slide 40s infinite linear; /* 每40秒輪播一次，並且無縫循環 */
+  width: 400%; /* 4張圖片，總寬度是100% * 4 */
+  height: 100%;
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 使圖片覆蓋容器 */
+  display: block;
+}
+
+/* 定義滑動動畫 */
+@keyframes slide {
+  0% {
+    transform: translateX(0); /* 從第一張開始 */
+  }
+  25% {
+    transform: translateX(-100%); /* 滑動至第二張 */
+  }
+  50% {
+    transform: translateX(-200%); /* 滑動至第三張 */
+  }
+  75% {
+    transform: translateX(-300%); /* 滑動至第四張 */
+  }
+  100% {
+    transform: translateX(-400%); /* 到達第四張後，返回到第一張 */
+  }
+}
+
+/* 媒體查詢：針對較小設備（例如平板）進行調整 */
+@media (max-width: 768px) {
+  .slider-container {
+    width: 90%;
+    height: 250px;
+  }
+}
+
+/* 媒體查詢：針對手機設備調整 */
+@media (max-width: 480px) {
+  .slider-container {
+    width: 95%;
+    height: 200px;
+  }
+}
+</style>
+
+
+<body>
+  <div class="content">
+    <h1>歡迎來到我的網站</h1>
+    <p>這是一段介紹文字，圖片滑動區域將自動滑動，速度較慢。</p>
+
+    <!-- 圖片自動滑動區域 -->
+    <div class="slider-container">
+      <div class="slider" id="slider">
+        <img src="01.jpg" alt="Image 1">
+        <img src="07.jpg" alt="Image 2">
+        <img src="0003.jpg" alt="Image 3">
+        <img src="04.jpg" alt="Image 4">
+        <img src="0003.jpg" alt="Image 5">
+        <img src="04.jpg" alt="Image 6">
+         
+      </div>
+    </div>
+
+    <p>這是另一段介紹文字，圖片滑動區域在這個區塊下方。</p>
+  </div>
+</body>
+</html>

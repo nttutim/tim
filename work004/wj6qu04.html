@@ -1,0 +1,25 @@
+<style>
+* {margin: 0px; box-sizing: border-box;}
+html {scroll-behavior: smooth;}
+.h-flex-container {display: flex; flex-direction: row; height:100vh;}
+.h-flex-container div {width:50%; position:relative;}
+.background {background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 50%}
+#sec1 {background-image: url("002.jpg");}
+#sec2 {background-image: url("003.jpg");}
+#sec3 {background-image: url("004.jpg");}
+h2 {position: absolute; text-align: center; top:25%; left:50%; transform: translate(-50%, -50%);}
+</style>
+<body>
+<div class="h-flex-container">
+<div id="sec1" class="background"></div>
+<div><h2><a href="#sec2">Welcome!</a></h2></div>
+</div>
+<div class="h-flex-container">
+<div><h2><a href="#sec3">Next Section</a></h2></div>
+<div id="sec2" class="background"></div>
+</div>
+<div class="h-flex-container">
+<div id="sec3" class="background"></div>
+<div><h2><a href="#sec1">Back to Top</a></h2></div>
+</div>
+</body>
