@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta name="description" content="可以遊玩的河內塔遊戲">
-<meta name="keywords" content="河內塔,遊,戲,益智,">
-<meta name="author" content="我們小組">
+    <meta name="description" content="可以遊玩的河內塔遊戲">
+    <meta name="keywords" content="河內塔,遊戲,益智,">
+    <meta name="author" content="我們小組">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>河內塔遊戲</title>
     <style>
+        /* 設定背景、文字字體與顏色 */
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
@@ -16,6 +17,7 @@
             color: #333;
         }
 
+        /* 標題樣式 */
         h1 {
             margin-top: 20px;
             font-size: 2.5rem;
@@ -23,6 +25,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
+        /* 規則區塊的樣式 */
         .rules {
             margin: 20px auto;
             background: rgba(255, 255, 255, 0.8);
@@ -34,6 +37,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* 三個柱子的外觀 */
         .tower-container {
             display: flex;
             justify-content: space-around;
@@ -42,6 +46,7 @@
             max-width: 800px;
         }
 
+        /* 單一柱子的樣式 */
         .tower {
             width: 150px;
             height: 300px;
@@ -53,6 +58,7 @@
             overflow: hidden;
         }
 
+        /* 柱子的中心線 */
         .tower::before {
             content: "";
             width: 10px;
@@ -65,6 +71,7 @@
             border-radius: 5px;
         }
 
+        /* 圓盤的樣式 */
         .disk {
             position: absolute;
             height: 20px;
@@ -78,6 +85,7 @@
             transition: all 0.3s ease;
         }
 
+        /* 按鈕的樣式 */
         .controls {
             margin: 20px auto;
             display: flex;
@@ -107,6 +115,7 @@
             transform: scale(1.1);
         }
 
+        /* 顯示步數與提示的樣式 */
         #step-counter {
             margin-top: 20px;
             font-size: 1.2rem;
@@ -124,6 +133,7 @@
 </head>
 <body>
     <h1>河內塔遊戲</h1>
+    <!-- 顯示遊戲規則 -->
     <div class="rules" id="rules">
         <p><strong>遊戲規則：</strong></p>
         <ul>
@@ -133,36 +143,42 @@
             <li>盡量用最少的步數完成遊戲！</li>
         </ul>
     </div>
+    <!-- 控制按鈕區 -->
     <div class="controls">
         <button class="button" onclick="changeDiskCount(-1)">減少圓盤</button>
         <span id="disk-count">3</span>
         <button class="button" onclick="changeDiskCount(1)">增加圓盤</button>
         <button class="button" onclick="resetGame()">重置遊戲</button>
     </div>
+    <!-- 三個柱子的容器 -->
     <div class="tower-container">
         <div class="tower" id="tower-a" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         <div class="tower" id="tower-b" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
         <div class="tower" id="tower-c" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
+    <!-- 顯示步數與提示 -->
     <div id="step-counter">步數：0</div>
     <div id="hints">提示：將最上面的圓盤拖動到另一個柱子上。</div>
 
     <script>
-        let towers = { A: [], B: [], C: [] };
-        let diskCount = 3;
-        let steps = 0;
+        // 定義遊戲狀態變數
+        let towers = { A: [], B: [], C: [] }; // 各柱子的圓盤堆疊
+        let diskCount = 3; // 預設圓盤數量
+        let steps = 0; // 步數
         let hintMessage = "提示：將最上面的圓盤拖動到另一個柱子上。";
 
+        // 初始化遊戲
         function initializeGame() {
-            towers = { A: [], B: [], C: [] };
+            towers = { A: [], B: [], C: [] }; // 清空所有柱子
             for (let i = diskCount; i > 0; i--) {
-                towers.A.push(i);
+                towers.A.push(i); // 將圓盤放入第一個柱子
             }
-            steps = 0;
+            steps = 0; // 步數重設
             hintMessage = "提示：將最上面的圓盤拖動到另一個柱子上。";
-            updateUI();
+            updateUI(); // 更新畫面
         }
 
+        // 改變圓盤數量
         function changeDiskCount(change) {
             const newDiskCount = diskCount + change;
             if (newDiskCount >= 3 && newDiskCount <= 10) {
@@ -172,18 +188,22 @@
             }
         }
 
+        // 重置遊戲
         function resetGame() {
             initializeGame();
         }
 
+        // 允許拖放事件
         function allowDrop(event) {
             event.preventDefault();
         }
 
+        // 開始拖動圓盤
         function drag(event) {
             event.dataTransfer.setData("disk", event.target.id);
         }
 
+        // 處理放置圓盤
         function drop(event) {
             event.preventDefault();
             const diskId = event.dataTransfer.getData("disk");
@@ -203,11 +223,13 @@
             }
         }
 
+        // 判斷是否能移動
         function isMoveValid(source, target) {
             if (towers[target].length === 0) return true;
             return towers[source][towers[source].length - 1] < towers[target][towers[target].length - 1];
         }
 
+        // 更新畫面
         function updateUI() {
             document.getElementById('step-counter').textContent = `步數：${steps}`;
             document.getElementById('hints').textContent = hintMessage;
@@ -228,6 +250,7 @@
             });
         }
 
+        // 檢查遊戲是否完成
         function checkWinCondition() {
             if (towers.C.length === diskCount) {
                 hintMessage = `恭喜你！你在 ${steps} 步完成了遊戲！`;
@@ -236,6 +259,7 @@
             }
         }
 
+        // 初始化
         initializeGame();
     </script>
 </body>
