@@ -1,64 +1,199 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>我的網頁設計與開發作業</title>
-<mata charset="UTF-8">
-<meta name="description" content="簡單介紹河內塔來由以及介紹一遊戲玩法">
-<meta name="keywords" content="河內塔,遊,戲,益智,">
-<meta name="author" content="余俊廷">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
-<meta http-equiv="refresh" content="100">
+    <title>河內塔介紹 - 網頁設計與開發作業</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="探討河內塔以一次移一個及大的在下小的在上的規則，用最少步                                     驟從第一個塔移動至第三個塔的方式和其中的規律。">
+    <meta name="keywords" content="河內塔,遊戲,益智,數學,介紹">
+    <meta name="author" content="余俊廷">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+            color: #333;
+        }
 
-<style>
-body
-#a1 {height:150px;background-image:url("09.jpg");background-repeat:no-repeat;background-size:cover;padding:1em}
+        header {
+            background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+            background-size: cover;
+            text-align: center;
+            color: black;
+            padding: 60px 20px;
+        }
 
-a:link {background-color: #000000; padding: 16px}
-a:visited {background-color: #000000; padding: 16px}
-a:hover {background-color: #ffffff; padding: 16px}
-a:active {background-color: #000000; padding: 16px}  
+        header h1 {
+            font-size: 2.5em;
+        }
 
-.header {background-image:url("09.jpg"); padding: 20px; text-align: center;color: white;}
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
 
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
 
-.nav {background-color: black; height: 50px; position: sticky; top:0px; z-index:999;}
-.nav a {float: left; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
-* {box-sizing: border-box;}
-.column {float: left; width: 50%; padding: 15px; height:500px;background-image:url("09.jpg");;background-repeat:no-repeat;background-size:cover;padding:1em}
-@media screen and (max-width:600px) {
-.column {width: 100%;}
-}
-.footer {clear: both; background-color: #f1f1f1; text-align: center;}
-body{margin: 0px;}
+        nav a:hover {
+            color: #ffcc00;
+        }
 
-ul {background: #3399ff; list-style-type: none;}
-ul li {background: #cce5ff;}
-ol {background: #ff9999; list-style-type: none;}
-ol li {background: #ffe5e5;}
-li {line-height: 1.8;}
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-</style>
-<body>
-<div id="a1">
-<div class="header"><h1>河內塔(第二頁)</h1></div>
-</div>
-<div class="nav">
-<a href="g5.html">首頁</a><a href="g4.html">動機介紹</a><a href="g3.html">河內塔作者介紹</a><a href="g2.html">遊戲介紹</a>
-</div>
-<div class="column",id="a2" ><h2>介紹動機</h2>
-<p>其實原因很簡單就是想讓更多人陪我一起燒腦</p>
-<ul><li>玩很簡單但要玩的最少次數卻有一定方式</li><li>請思考怎樣才可最少步驟後完成</li><li>有最少步存在</li></ul>
-<ol><li>還在為了浪費時間而浪費時間嗎</li><li>要不來算數學吧</li><li>請享受河內塔的樂趣吧</li></ol>
-</div>
+        section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #555;
+        }
 
-<div class="column"><h2>有趣結論</h2>
-<br>  
-<ul><li>這項遊戲有最少步驟的解</li><li>請先假設有n個圓盤</li><li>最少步為2的n次方-1</li></ul>
-<ol><li>至於為甚麼</li><li>身為數學系的你</li><li>一定可以通過遊玩來得出來吧?</li></ol>
-</div>
-<div class="footer"><h3><li><a href="g5.html">返回上一頁</li></a></h3><h3><li><a href="g3.html">進入下一頁</li></h3></div>
+        ul, ol {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
 
-</body>
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
 
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .column-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 280px;
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .image {
+            text-align: center;
+        }
+
+        .image img {
+            max-width: 500%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
+<body>
+    <header>
+        <h1>歡迎來到河內塔探索頁面</h1>
+        <p>探索這個經典的益智遊戲及其背後的邏輯</p>
+    </header>
+
+    <nav>
+        <a href="#story">遊戲故事</a>
+        <a href="#rules">玩法規則</a>        
+        <a href="#author">研究過程或方法</a>
+        <a href="#math">數學解析</a>
+    </nav>
+
+    <section id="story">
+        <h2>遊戲故事</h2>
+        <p>河內塔源自越南河內的一個傳說。相傳在一座神廟中，僧侶們必須將64個金片從一個塔移到另一個塔，而當他們完成這項任務時，世界將會毀滅。這個傳說被稱為梵天寺之塔問題（Tower of Brahma Puzzle），因為故事地點在河內，所以稱為河內塔。</p>
+    </section>
+
+    
+    </section>
+
+    <section id="rules">
+        <h2>玩法規則</h2>
+        <ol>
+            <li>準備三個柱子和若干圓盤，圓盤的大小不一。</li>
+            <li>將所有圓盤按大小順序堆疊在第一根柱子上，最小的在最上面。</li>
+            <li>目標是將圓盤全部移到第三根柱子，移動時需遵循以下規則：</li>
+            <ul>
+                <li>一次只能移動一個圓盤。</li>
+                <li>較大的圓盤不能放在較小的圓盤上。</li>
+            </ul>
+        </ol>
+    </section>
+
+    <section id="author">
+        <h2>研究過程或方法</h2>
+        <ul>
+            <li><strong>先以三層為例：</strong>因此我們三層的解題步驟為（設第一塔為A，第二塔為B,第三塔為C,層次1,2,3層分別為1,2,3）：
+1~C , 2~B , 1~B , 3~C , 1~A , 2~C , 1~C
+</li>
+            <li><strong>四層：</strong>我們四層的解題步驟為（設第一塔為A，第二塔為B,第三塔為C,層次1,2,3,4層分別為1,2,3,4）
+
+1~B , 2~C , 1~C , 3~B , 1~A , 2~B , 1~B ,  4~C ,  1~C ,  2~A ,     1~A , 3~C , 1~B ,  2~C , 1~C
+</li>
+            <li><strong>五層：</strong>我們五塔的解題步驟為（設第一塔為A，第二塔為B,第三塔為C,層次1,2,3,4,5層分別為1,2,3,4,5）
+
+1~C , 2~B , 1~B , 3~C , 1~A ,
+2~C , 1~C , 4~B , 1~B , 2~A,
+1~A , 3~B , 1~C , 2~B , 1~B ,
+5~C , 1~A , 2~C , 1~C , 3~A,
+1~B , 2~A , 1~A , 4~C , 1~C ,
+2~B , 1~B , 3~C , 1~A , 2~C,
+1~C。
+</li>
+            <li><strong> 結果：</strong>三層的最少移動次數為7次。
+
+四層的最少移動次數為15次。
+
+五層的最少移動次數為31次
+</li>
+        </ul>
+    </section>
+        </div>
+    <section id="math">
+        <h2>歸納出下列公式</h2>
+        <ul>
+            <li><strong>環數n=3時:</strong>2<sup>0</sup>+2<sup>1</sup>+2<sup>2</sup>=7 </li>
+            <li><strong>環數n=4時:</strong>2<sup>0</sup>+2<sup>1</sup>+2<sup>2</sup>+3<sup>2</sup>=15 </li>
+            <li><strong>環數n=5時:</strong>2<sup>0</sup>+2<sup>1</sup>+2<sup>2</sup>+2<sup>3</sup>+2<sup>4</sup>=31 </li>
+            <ul>
+            <li><strong>環數n=N時:</strong>2<sup>0</sup>+2<sup>1</sup>+2<sup>2</sup>......++2<sup>N-1</sup> =2<sup>n-1</sup></li></li>
+            <li><strong>其中:</strong>2<sup>0</sup>為所有環中最大環的總移動次數
+ </li>
+            <li><strong>其中:</strong>2<sup>n-1</sup>為所有環中最小環的總移動次數
+ </li>
+            </ul>
+        </ul>
+      
+    </section>
+
+    <footer>
+       <a href="https://jkojk541515.github.io/2025-1/212.html"> <p>&copy; 2025 小組成果</a> | <a href="#">返回頂部</a> |<a href="https://jkojk541515.github.io/2025-1/212.html"> <p>&copy; 2020 數學科成果</p>
+    </footer>
+</body>
 </html>
